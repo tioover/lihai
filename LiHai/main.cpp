@@ -1,14 +1,18 @@
 #include<iostream>
+#include<vector>
+#include<cstdlib>
 #include "avl.h"
 
 
+using std::vector;
+
 int main() {
-    Node *root = nullptr;
-    int data[] = { 10, 18, 18, 8, 7, 9, 50, 14, 17, 25 };
-    for each (auto i in data)
+    Tree<int> *tree = new Tree<int>();
+    for (size_t i = 0; i < 100; i++)
     {
-        root = insert(root, i);
+        tree->insert(rand() % 1000);
     }
+    delete tree;
     getchar();
     return 0;
 }
