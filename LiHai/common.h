@@ -1,13 +1,17 @@
 #pragma once
 #include<utility>
 #include<cassert>
-// typedef
-typedef int32_t i32;
-typedef int64_t i64;
-typedef uint32_t u32;
-typedef uint64_t u64;
-// Macro
-#define MAX(a,b) (a>b) ? a : b
+#include<cstddef>
+// Type redefine
+using i32   = int32_t;
+using i64   = int64_t;
+using u32   = uint32_t;
+using u64   = uint64_t;
+using usize = size_t;
+using f32   = float;
+using f64   = double;
+
+// Common macro
 
 
 // Common help class

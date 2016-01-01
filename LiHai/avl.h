@@ -1,13 +1,37 @@
 #pragma once
 #include<iostream>
+#include<algorithm>
 #include "common.h"
-#define HEIGHT(a, b) MAX(Node::height(a), Node::height(b)) + 1
+
+template <typename T>
+class Tree
+{
+public:
+    Tree() { this->root = nullptr; };
+    Tree(T data) { this->root = Node::insert(nullptr, data); };
+    ~Tree() { delete this->root; };
+    void insert(T data) { this->root = Node::insert(this->root, data); };
+    Maybe<T*> search(T *key)
+    {
+        if (this->root == nullptr)
+        {
+            return Maybe<T*>();
+        }
+        else
+        {
+            return this->root->search(key);
+        }
+    }
+private:
+    class Node;
+    Node *root;
+};
 
 
 template <typename T>
-class Node
+class Tree<T>::Node
 {
-public:
+    friend class Tree<T>;
     static Node *insert(Node* tree, T x)
     {
         if (tree == nullptr)
@@ -17,35 +41,35 @@ public:
         if (x < tree->data)
         {
             tree->left = insert(tree->left, x);
-            if (Node::height(tree->left) - Node::height(tree->right) == 2)
+            if (height(tree->left) - height(tree->right) == 2)
             {
                 if (x < tree->left->data)
                 {
-                    tree = Node::single_rotate_with_left(tree);
+                    tree = single_rotate_with_left(tree);
                 }
                 else
                 {
-                    tree = Node::double_rotate_with_left(tree);
+                    tree = double_rotate_with_left(tree);
                 }
             }
         }
         else if (x > tree->data)
         {
             tree->right = insert(tree->right, x);
-            if (Node::height(tree->right) - Node::height(tree->left) == 2)
+            if (height(tree->right) - height(tree->left) == 2)
             {
                 if (x > tree->right->data)
                 {
-                    tree = Node::single_rotate_with_right(tree);
+                    tree = single_rotate_with_right(tree);
                 }
                 else
                 {
-                    tree = Node::double_rotate_with_right(tree);
+                    tree = double_rotate_with_right(tree);
                 }
             }
 
         }
-        tree->height_ = HEIGHT(tree->left, tree->right);
+        tree->height_ = height(tree->left, tree->right);
         return tree;
     };
     ~Node()
@@ -77,7 +101,6 @@ public:
             return this->right->search(key);
         }
     };
-private:
     Node(T d)
         : data(d)
     {
@@ -89,7 +112,7 @@ private:
     Node *right;
     Node *parent;
     int height_;
-    static int height(Node *node)
+    static inline int height(Node *node)
     {
         if (node == nullptr)
         {
@@ -100,14 +123,18 @@ private:
             return node->height_;
         }
     };
+    static inline int height(Node *a, Node *b)
+    {
+        return std::max(height(a), height(b)) + 1;
+    }
     static Node *single_rotate_with_left(Node* tree)
     {
         Node *new_tree;
         new_tree = tree->left;
         tree->left = new_tree->right;
         new_tree->right = tree;
-        tree->height_ = HEIGHT(tree->right, tree->left);
-        new_tree->height_ = HEIGHT(new_tree->left, tree);
+        tree->height_ = height(tree->right, tree->left);
+        new_tree->height_ = height(new_tree->left, tree);
         return new_tree;
     };
     static Node *double_rotate_with_left(Node* tree)
@@ -121,8 +148,8 @@ private:
         new_tree = tree->right;
         tree->right = new_tree->left;
         new_tree->left = tree;
-        tree->height_ = HEIGHT(tree->right, tree->left);
-        new_tree->height_ = HEIGHT(new_tree->right, tree);
+        tree->height_ = height(tree->right, tree->left);
+        new_tree->height_ = height(new_tree->right, tree);
         return new_tree;
     };
     static Node *double_rotate_with_right(Node* tree)
@@ -130,26 +157,5 @@ private:
         tree->right = single_rotate_with_left(tree->right);
         return single_rotate_with_right(tree);
     };
-};
-
-
-template <typename T>
-class Tree
-{
-public:
-    Tree() { this->root = nullptr; };
-    Tree(T data) { this->root = Node<T>::insert(nullptr, data); };
-    ~Tree() { delete this->root; };
-    void insert(T data) { this->root = Node<T>::insert(this->root, data); };
-    Maybe<T*> search(T *key) {
-        if (this->root == nullptr) {
-            return Maybe<T*>();
-        }
-        else {
-            return this->root->search(key);
-        }
-    }
-private:
-    Node<T> *root;
 };
 
