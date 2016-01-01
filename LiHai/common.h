@@ -2,12 +2,14 @@
 #include<utility>
 #include<cassert>
 #include<cstddef>
+#include<type_traits>
 // Type redefine
-using i32   = int32_t;
-using i64   = int64_t;
-using u32   = uint32_t;
-using u64   = uint64_t;
-using usize = size_t;
+using i32   = std::int32_t;
+using i64   = std::int64_t;
+using u32   = std::uint32_t;
+using u64   = std::uint64_t;
+using isize = std::make_signed_t<std::size_t>;
+using usize = std::size_t;
 using f32   = float;
 using f64   = double;
 
