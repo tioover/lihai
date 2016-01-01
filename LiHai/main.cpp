@@ -6,13 +6,29 @@
 
 using std::vector;
 
+
 int main() {
-    Tree<int> *tree = new Tree<int>();
-    for (size_t i = 0; i < 100; i++)
+    i64 a;
+    auto *tree = new Tree<decltype(a)>();
+    decltype(tree->search(nullptr)) data;
+    for (size_t i = 0; i < 1000; i++)
     {
-        tree->insert(rand() % 1000);
+        tree->insert(i);
+    }
+    for (;;)
+    {
+        std::cin >> a;
+        if (a == -1) { break; }
+        data = tree->search(&a);
+        if (data.is_none())
+        {
+            std::cout << "Not Found" << std::endl;
+        }
+        else
+        {
+            std::cout << "Found: " << *(data.get()) << std::endl;
+        }
     }
     delete tree;
-    getchar();
     return 0;
 }

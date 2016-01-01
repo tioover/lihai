@@ -1,6 +1,6 @@
 #pragma once
 #include<iostream>
-#define MAX(a,b) (a>b) ? a : b
+#include "common.h"
 #define HEIGHT(a, b) MAX(Node::height(a), Node::height(b)) + 1
 
 
@@ -53,6 +53,29 @@ public:
         delete this->left;
         delete this->right;
         std::cout << "DELETED: " << this->data << std::endl;
+    };
+    Maybe<T*> search(T *key)
+    {
+        if (*key == this->data)
+        {
+            return Maybe<T*>(&this->data);
+        }
+        else if (*key < this->data)
+        {
+            if (this->left == nullptr)
+            {
+                return Maybe<T*>();
+            }
+            return this->left->search(key);
+        }
+        else
+        {
+            if (this->right == nullptr)
+            {
+                return Maybe<T*>();
+            }
+            return this->right->search(key);
+        }
     };
 private:
     Node(T d)
@@ -118,6 +141,14 @@ public:
     Tree(T data) { this->root = Node<T>::insert(nullptr, data); };
     ~Tree() { delete this->root; };
     void insert(T data) { this->root = Node<T>::insert(this->root, data); };
+    Maybe<T*> search(T *key) {
+        if (this->root == nullptr) {
+            return Maybe<T*>();
+        }
+        else {
+            return this->root->search(key);
+        }
+    }
 private:
     Node<T> *root;
 };
