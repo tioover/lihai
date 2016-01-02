@@ -1,9 +1,9 @@
 #pragma once
-#include<iostream>
 #include<algorithm>
 #include "common.h"
 namespace avl
 {
+
 template <typename T>
 class Tree
 {
@@ -80,7 +80,7 @@ class Tree<T>::Node
     {
         delete this->left;
         delete this->right;
-        std::cout << "DELETED: " << this->data << std::endl;
+        LOG("DELETED: " << this->data);
     };
     Maybe<T*> search(T *key)
     {
