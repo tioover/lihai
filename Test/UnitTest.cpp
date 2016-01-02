@@ -13,14 +13,13 @@ using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 namespace Test
 {		
-	TEST_CLASS(AvlTreeTest)
-	{
+    TEST_CLASS(AvlTreeTest)
+    {
     using Data = i64;
     using Tree = avl::Tree<Data>;
     const Data MAX = 1000;
 	public:
-		
-		TEST_METHOD(add_and_search)
+        TEST_METHOD(add_and_search)
 		{
             auto *tree = new Tree();
             auto data = std::vector<Data>(MAX);
@@ -38,8 +37,7 @@ namespace Test
                 Assert::IsTrue(i == *p);
             }
             delete tree;
-		}
-
-	};
+        }
+    };
 }
 
