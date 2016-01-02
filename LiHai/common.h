@@ -1,5 +1,7 @@
 #pragma once
 #include<utility>
+#include<iterator>
+#include<xutility>
 #include<cassert>
 #include<cstddef>
 #include<type_traits>
@@ -14,6 +16,16 @@ using f32   = float;
 using f64   = double;
 
 // Common macro
+#if _MSC_VER
+    #define restrict __restrict
+#else
+    #define restrict __restrict__
+#endif
+
+#define ITER(x) x.begin(), x.end()
+
+#define typeof decltype
+
 
 
 // Common help class
@@ -45,3 +57,5 @@ private:
     bool none;
     T data;
 };
+
+

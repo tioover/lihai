@@ -2,16 +2,20 @@
 #include<iostream>
 #include<algorithm>
 #include "common.h"
-
+namespace avl
+{
 template <typename T>
 class Tree
 {
 public:
+    using Type = T;
+    using Result = Maybe<T*>;
+
     Tree() { this->root = nullptr; };
     Tree(T data) { this->root = Node::insert(nullptr, data); };
     ~Tree() { delete this->root; };
     void insert(T data) { this->root = Node::insert(this->root, data); };
-    Maybe<T*> search(T *key)
+    Result search(T *key)
     {
         if (this->root == nullptr)
         {
@@ -108,8 +112,8 @@ class Tree<T>::Node
         height_ = 0;
     };
     T data;
-    Node *left;
-    Node *right;
+    Node *restrict left;
+    Node *restrict right;
     Node *parent;
     int height_;
     static inline int height(Node *node)
@@ -159,3 +163,4 @@ class Tree<T>::Node
     };
 };
 
+}

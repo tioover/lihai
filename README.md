@@ -2,11 +2,10 @@
 
 看起来好像很厉害的数据结构和算法，用看起来很厉害的 C++ 来写。
 
-个人练习项目 Visual Studio 构筑。CR+LF 换行符。
+使用 Visual Studio 2015 Update 1 构筑。
 
 ## TODO
 
-* <del>二叉查找树</del>
 * 堆
 * <del>AVL 树</del>
 * 图
@@ -15,4 +14,6 @@
 
 ## 协议
 
-WTFPL
+[WTFPL](https://en.wikipedia.org/wiki/WTFPL) 
+
+你他喵想干啥就干啥好了。
