@@ -113,7 +113,11 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="common.h" />
+    <ClInclude Include="base.h" />
+    <ClInclude Include="bisearch.h" />
+    <ClInclude Include="panic.h" />
+    <ClInclude Include="types.h" />
+    <ClInclude Include="option.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
