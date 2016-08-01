@@ -4,16 +4,16 @@
 
 
 template <typename T>
-Option<usize> bisearch(const T arr[], const usize length, const T value) {
+Option<usize> bisearch(const T array[], const usize length, const T value) {
 	usize start = 0;
 	usize end = length - 1;
 	usize mid;
 	while (start <= end) {
-		mid = start + ((end - start) >> 1);
-		if (value > arr[mid]) {
+		mid = (end - start >> 1) + start;
+		if (value > array[mid]) {
 			start = mid + 1;
 		}
-		else if (value < arr[mid]) {
+		else if (value < array[mid]) {
 			end = mid - 1;
 		}
 		else {

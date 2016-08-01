@@ -2,10 +2,28 @@
 #include "base.h"
 #include "bisearch.h"
 
+
+void test_bisearch() {
+	const usize max = 100;
+	i32 a[max];
+	for (usize i = 0; i < max; i++) {
+		a[i] = i;
+	}
+	for (usize i = 0; i < max; i++) {
+		if (bisearch<i32>(a, max, i).unwrap() != i) {
+			PANIC("Test failure.");
+		}
+	}
+}
+
+
 int main() {
-	const i32 a[] = { 0, 1, 2, 3, 4, 5, 6, 233 };
-	const usize bisearch_result = bisearch<i32>(a, 8, 233).unwrap();
-	std::cout << "LiHai" << std::endl << "--------" << std::endl
-	          << "Binary search result: " << bisearch_result << std::endl;
-	std::getchar();
+	using namespace std;
+	cout
+		<< "LiHai" << endl << "--------" << endl
+		<< "Binary search test. ";
+	test_bisearch();
+	cout
+		<< "DONE" << endl;
+	getchar();
 }
