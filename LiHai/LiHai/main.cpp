@@ -1,33 +1,48 @@
 #include <iostream>
 #include <cassert>
 #include <ctime>
+#include <array>
 #include "base.h"
 #include "bisearch.h"
 #include "qsort.h"
 
 
 void test_qsort() {
-	const usize max = 10000;
+	const usize max = 100000;
 	std::srand((unsigned int)(time(NULL)));
-	i32 arr[max];
-	for (isize i = 0; i < max; i++) {
+	std::array<i32, max> arr;
+	for (isize i = 0; i < max; i++)
+	{
 		arr[i] = std::rand();
 	}
-	qsort(arr, max);
-	for (usize i = 0; i < max-1; i++) {
-		assert(arr[i] <= arr[i + 1]);
+	qsort(arr.data(), max);
+	;
+	for (usize i = 0; i < max-1; i++)
+	{
+		assert(arr[i] <= arr[i + 1] && arr[i] >= 0);
 	}
 }
 
 
-void test_bisearch() {
+void test_bisearch()
+{
 	const usize max = 100;
-	i32 a[max];
-	for (usize i = 0; i < max; i++) {
-		a[i] = i;
+	using A = std::array<i32, max>;
+	A arr;
+	for (usize i = 0; i < max; i++)
+	{
+		arr[i] = i;
 	}
-	for (usize i = 0; i < max; i++) {
-		assert(bisearch<i32>(a, max, i).unwrap() == i);
+	auto begin = arr.begin();
+	auto iter = begin;
+	auto end = arr.end();
+	i32 i = 0;
+	while (iter != end)
+	{
+		auto result = bisearch(begin, end, i).unwrap();
+		assert(result == iter);
+		iter++;
+		i++;
 	}
 }
 
@@ -42,7 +57,11 @@ int main() {
 		<< "DONE" << endl
 		<< "Quick sort test: ";
 	test_qsort();
+	test_qsort();
+	test_qsort();
+
 	cout
 		<< "DONE" << endl;
 	getchar();
+	return 0;
 }

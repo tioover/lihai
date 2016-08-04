@@ -1,24 +1,31 @@
 #pragma once
-#include "types.h"
-#include "option.h"
+#include "base.h"
 
 
-template <typename T>
-Option<usize> bisearch(const T array[], const usize length, const T value) {
-	usize start = 0;
-	usize end = length - 1;
-	usize mid;
-	while (start <= end) {
-		mid = (end - start >> 1) + start;
-		if (value > array[mid]) {
+template <typename Iter>
+Option<Iter> bisearch(Iter start, Iter end, typename std::iterator_traits<Iter>::value_type value)
+{
+	assert_random_iterator<Iter>();
+
+	Iter mid;
+
+	// 传入的区间是 [start, end)，所以循环条件为 start < end 
+	while (start < end)
+	{
+		mid = median(start, end);
+
+		if (value > *mid)
+		{
 			start = mid + 1;
 		}
-		else if (value < array[mid]) {
-			end = mid - 1;
+		else if (value < *mid)
+		{
+			end = mid;
 		}
-		else {
-			return Option<usize>(mid);
+		else
+		{
+			return Option<Iter>(mid);
 		}
 	}
-	return Option<usize>();
+	return Option<Iter>();
 }

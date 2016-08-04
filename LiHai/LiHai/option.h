@@ -17,15 +17,18 @@ public:
 		this->none = false;
 	}
 
-	T&& unwrap() noexcept {
-		if (this->none) {
+	T&& unwrap() noexcept
+	{
+		if (this->none)
+		{
 			PANIC("Unwrap a empty \"Maybe\"");
 		}
 		this->none = false;
 		return std::move(this->data);
 	}
 
-	bool is_none() {
+	bool is_none()
+	{
 		return this->none;
 	}
 
