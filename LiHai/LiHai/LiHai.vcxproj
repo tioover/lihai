@@ -112,11 +112,13 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="qsort.cpp" />
+    <ClCompile Include="prime.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="base.h" />
     <ClInclude Include="bisearch.h" />
     <ClInclude Include="panic.h" />
+    <ClInclude Include="prime.h" />
     <ClInclude Include="types.h" />
     <ClInclude Include="option.h" />
     <ClInclude Include="qsort.h" />

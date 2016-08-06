@@ -5,63 +5,67 @@
 #include "base.h"
 #include "bisearch.h"
 #include "qsort.h"
+#include "prime.h"
 
-
-void test_qsort() {
-	const usize max = 100000;
-	std::srand((unsigned int)(time(NULL)));
-	std::array<i32, max> arr;
-	for (isize i = 0; i < max; i++)
-	{
-		arr[i] = std::rand();
-	}
-	qsort(arr.data(), max);
-	;
-	for (usize i = 0; i < max-1; i++)
-	{
-		assert(arr[i] <= arr[i + 1] && arr[i] >= 0);
-	}
-}
-
-
-void test_bisearch()
+namespace test
 {
-	const usize max = 100;
-	using A = std::array<i32, max>;
-	A arr;
-	for (usize i = 0; i < max; i++)
+	void quicksort()
 	{
-		arr[i] = i;
+		const usize max = 100000;
+		std::srand((unsigned int)(time(NULL)));
+		std::array<i32, max> arr;
+		for (isize i = 0; i < max; i++)
+		{
+			arr[i] = std::rand();
+		}
+		qsort(arr.data(), max);
+		;
+		for (usize i = 0; i < max - 1; i++)
+		{
+			assert(arr[i] <= arr[i + 1] && arr[i] >= 0);
+		}
 	}
-	auto begin = arr.begin();
-	auto iter = begin;
-	auto end = arr.end();
-	i32 i = 0;
-	while (iter != end)
+
+
+	void binary_search()
 	{
-		auto result = bisearch(begin, end, i).unwrap();
-		assert(result == iter);
-		iter++;
-		i++;
+		const usize max = 100;
+		using A = std::array<i32, max>;
+		A arr;
+		for (usize i = 0; i < max; i++)
+		{
+			arr[i] = i;
+		}
+		auto begin = arr.begin();
+		auto iter = begin;
+		auto end = arr.end();
+		i32 i = 0;
+		while (iter != end)
+		{
+			auto result = bisearch(begin, end, i).unwrap();
+			assert(result == iter);
+			iter++;
+			i++;
+		}
 	}
 }
 
-
-int main() {
+int main()
+{
 	using namespace std;
 	cout
 		<< "LiHai" << endl << "--------" << endl
 		<< "Binary search test. ";
-	test_bisearch();
+	test::binary_search();
 	cout
 		<< "DONE" << endl
 		<< "Quick sort test: ";
-	test_qsort();
-	test_qsort();
-	test_qsort();
-
+	test::quicksort();
 	cout
 		<< "DONE" << endl;
+	cout
+		<< "4263116 prime is: "
+		<< prime_n(4263116) << endl;
 	getchar();
 	return 0;
 }

@@ -1,20 +1,18 @@
-#include "qsort.h"
+﻿#include "qsort.h"
 #include <cassert>
-inline void swap(i32 &a, i32 &b)
-{
-	i32 tmp = a;
-	a = b;
-	b = tmp;
-}
+
+using Value = i32;
 
 
-i32 make_pivot(i32 *arr, usize left, usize right)
+
+Value make_pivot(Value *arr, usize left, usize right)
 {
+	using helper::swap;
 	// 三值中分，确保 头 <= pivot <= 尾
 	// 这里有交换整理的功能，所以不适合用 std::min_element 。
-	usize mid = median(left, right);
+	usize mid = helper::median(left, right);
 
-	i32 &l = arr[left], &r = arr[right], &m = arr[mid];
+	Value &l = arr[left], &r = arr[right], &m = arr[mid];
 
 	if (l > r) { swap(l, r); }
 	if (l > m) { swap(l, m); }
@@ -28,11 +26,13 @@ i32 make_pivot(i32 *arr, usize left, usize right)
 }
 
 
-void sort(i32 *arr, usize left, usize right)
+void sort(Value *arr, usize left, usize right)
 {
+	using helper::swap;
+
 	if (left == right) { return; } // 边界条件。
 	// 将头尾和 pivot 按顺序排好，把 pivot 移动到 [right-1] 位置。
-	i32 pivot = make_pivot(arr, left, right); 
+	Value pivot = make_pivot(arr, left, right); 
 	if (right - left < 3) { return; } // 边界条件，在这种情况下已经排好序了。
 	// 处理边界条件，最好的方式还是在小数组的情况下用插入排序。
 	// 但这里强行处理一下。
@@ -44,7 +44,8 @@ void sort(i32 *arr, usize left, usize right)
 	//  头^               pivot^  尾^
 	//   i^                   j^
 	usize i = left, j = right - 1;
-	for (;;) {
+	for (;;)
+	{
 
 		while (arr[++i] < pivot) {}
 		while (arr[--j] > pivot) {}
@@ -59,10 +60,7 @@ void sort(i32 *arr, usize left, usize right)
 		}
 		// 如果交错了，说明没有可交换的了，滑过头了，就跳出循环。
 		// make_pivot 安排了头尾和 pivot 的位置，所以能保证 i, j 能在头尾停下来。
-		else
-		{
-			break;
-		}
+		else break;
 	}
 	// 将 pivot 放到 i 所在的位置。
 	swap(arr[i], arr[right - 1]);
@@ -73,11 +71,11 @@ void sort(i32 *arr, usize left, usize right)
 		// 开启递归过程。
 		sort(arr, left, i - 1);
 	}
-
 	sort(arr, i + 1, right);
 }
 
 
-void qsort(i32 *arr, usize len) {
+void qsort(Value *arr, usize len)
+{
 	sort(arr, 0, len - 1);
 }

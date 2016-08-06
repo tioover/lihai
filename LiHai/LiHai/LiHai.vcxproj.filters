@@ -21,6 +21,9 @@
     <ClCompile Include="qsort.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="prime.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="types.h">
@@ -39,6 +42,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="qsort.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="prime.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
