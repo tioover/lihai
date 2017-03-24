@@ -3,7 +3,6 @@
 #include <type_traits>
 #include <iterator>
 #include "types.h"
-#include "panic.h"
 #include "option.h"
 
 
@@ -16,7 +15,7 @@ namespace helper {
                 std::is_same<
                         typename std::iterator_traits<Iter>::iterator_category,
                         std::random_access_iterator_tag
-                >::value, "迭代器必须是随机的。");
+                >::value, "The iterator must random access.");
     }
 
     template<typename T>

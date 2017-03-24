@@ -8,7 +8,7 @@
 
 namespace test {
     void quicksort() {
-        const usize max = 100000;
+        const usize max = 1000000;
         std::srand((unsigned int) (time(NULL)));
         std::array<i32, max> arr;
         for (usize i = 0; i < max; i++) {
@@ -22,7 +22,7 @@ namespace test {
 
 
     void binary_search() {
-        const usize max = 100;
+        const usize max = 100000;
         using A = std::array<i32, max>;
         A arr;
         for (usize i = 0; i < max; i++) {
@@ -32,11 +32,9 @@ namespace test {
         auto iter = begin;
         auto end = std::end(arr);
         i32 i = 0;
-        while (iter != end) {
+        for (auto iter = begin; iter != end; iter++, i++) {
             auto result = bisearch(begin, end, i).unwrap();
             assert(result == iter);
-            iter++;
-            i++;
         }
     }
 }
@@ -52,9 +50,10 @@ int main() {
     test::quicksort();
     cout
             << "DONE" << endl;
+    const u32 prime = 4263116;
     cout
-            << "4263116 prime is: "
-            << prime_n(4263116) << endl;
+            << prime << "st prime is: "
+            << prime_n(prime) << endl;
     getchar();
     return 0;
 }

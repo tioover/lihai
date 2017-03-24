@@ -8,7 +8,6 @@ set(SOURCE_FILES
         src/bisearch.h
         src/main.cpp
         src/option.h
-        src/panic.h
         src/prime.cpp
         src/prime.h
         src/qsort.cpp

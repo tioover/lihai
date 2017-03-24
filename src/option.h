@@ -1,7 +1,7 @@
 #pragma once
 
 #include <utility>
-#include "panic.h"
+#include <stdexcept>
 
 template<typename T>
 class Option {
@@ -17,7 +17,7 @@ public:
 
     T &&unwrap() noexcept {
         if (this->none) {
-            PANIC("Unwrap a empty \"Maybe\"");
+            throw std::runtime_error("Unwrap a empty \"Maybe\"");
         }
         this->none = false;
         return std::move(this->data);
