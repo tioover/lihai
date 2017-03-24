@@ -1,4 +1,5 @@
 #pragma once
+
 #include <cstddef>
 #include <cstdint>
 #include <type_traits>
@@ -13,7 +14,7 @@ using u8 = std::uint8_t;
 using u16 = std::uint16_t;
 using u32 = std::uint32_t;
 using u64 = std::uint64_t;
-using isize = std::make_signed_t<std::size_t>;
+using isize = std::make_signed<std::size_t>;
 using usize = std::size_t;
 using iptr = std::intptr_t;
 using uptr = std::uintptr_t;

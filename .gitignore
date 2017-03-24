@@ -281,3 +281,5 @@ $RECYCLE.BIN/
 *.lnk
 *.opendb
 LiHai/LiHai.VC.db
+.idea/
+cmake-build-debug/
