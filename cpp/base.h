@@ -20,6 +20,7 @@ namespace helper {
 
     template<typename T>
     inline T median(T a, T b) {
+        // 显然这里是为了避免溢出。
         return a + (b - a) / 2;
     }
 

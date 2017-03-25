@@ -18,7 +18,7 @@ Value make_pivot(Value *arr, usize left, usize right) {
 
     assert(l <= m && m <= r);
 
-    // 交换以后将 pivot 放到尾前一个位置。
+    // 交换以后将 pivot 交换到尾前一个位置。
     swap(m, arr[right - 1]);
     return arr[right - 1];
 }
@@ -43,6 +43,13 @@ void sort(Value *arr, usize left, usize right) {
     usize i = left, j = right - 1;
     for (;;) {
 
+
+        // 到最后 j 会指向头，因为头 <= pivot 所以会停下来，
+        // i 往前滑最后会指向 pivot 自己。
+        // 所以能确保停下来。
+
+        // 对于没有对头、尾、pivot 安排的情况，要根据 pivot 选取的位置，对 while 再加一道 && 防止 i 或者 j 滑过头。
+        // 比如说 pivot 在尾部就是 while (arr[++i] < pivot && i != right)
         while (arr[++i] < pivot) {}
         while (arr[--j] > pivot) {}
         // [  1, 3, 6, 5, 9, 3, 0, 4,   8]
@@ -51,18 +58,19 @@ void sort(Value *arr, usize left, usize right) {
         // 滑动停止，交换两个元素。
 
 
+
         if (i < j) {
             swap(arr[i], arr[j]);
         }
         else {
             // 如果交错了，说明没有可交换的了，滑过头了，就跳出循环。
             break;
-            // 到最后 j 会指向头，因为头 <= pivot 所以会停下来，
-            // i 往前滑最后会指向 pivot 自己。
-            // 所以能确保停下来。
         }
     }
     // 将 pivot 放到 i 所在的位置。
+    // 这里注意，要根据 pivot 的位置选取 i 和 j，因为到最后 i 会指向更大的数而 j 会指向更小的数，
+    // 所以如果 pivot 放在开头那么就和 j 调换，放在结尾就和 i 调换。
+    // 这个代码放在结尾，所以和 i 调换。
     swap(arr[i], arr[right - 1]);
 
 

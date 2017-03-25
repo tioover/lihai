@@ -4,14 +4,14 @@ project(lihai)
 set(CMAKE_CXX_STANDARD 11)
 
 set(SOURCE_FILES
-        src/base.h
-        src/bisearch.h
-        src/main.cpp
-        src/option.h
-        src/prime.cpp
-        src/prime.h
-        src/qsort.cpp
-        src/qsort.h
-        src/types.h)
+        cpp/base.h
+        cpp/bisearch.h
+        cpp/main.cpp
+        cpp/option.h
+        cpp/prime.cpp
+        cpp/prime.h
+        cpp/qsort.cpp
+        cpp/qsort.h
+        cpp/types.h cpp/bitmap.cpp cpp/bitmap.h)
 
 add_executable(lihai ${SOURCE_FILES})
