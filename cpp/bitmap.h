@@ -14,7 +14,7 @@ class Bitmap {
     }
     u64 bit(u32 x) {
         u64 bit = 1;
-        return bit << x;
+        return bit << (x % 64);
     }
 public:
     void add(u32 x) {
