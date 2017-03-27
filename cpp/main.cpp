@@ -5,7 +5,7 @@
 #include "bisearch.h"
 #include "qsort.h"
 #include "prime.h"
-
+#include "bitmap.h"
 namespace test {
     void quicksort() {
         const usize max = 1000000;
@@ -54,6 +54,13 @@ int main() {
     cout
             << prime << "st prime is: "
             << prime_n(prime) << endl;
+    Bitmap map = Bitmap();
+    map.add(42);
+    map.add(4242);
+    assert(!map.get(11));
+    assert(map.get(42));
+    assert(map.get(4242));
+    assert(!map.get(4241));
     getchar();
     return 0;
 }
