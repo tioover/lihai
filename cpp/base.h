@@ -23,11 +23,4 @@ namespace helper {
         // 显然这里是为了避免溢出。
         return a + (b - a) / 2;
     }
-
-    template<typename T>
-    inline void swap(T &a, T &b) {
-        T t = a;
-        a = b;
-        b = t;
-    }
 }

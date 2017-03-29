@@ -1,11 +1,14 @@
 #include <iostream>
 #include <cassert>
+#include <string>
 #include <array>
 #include "base.h"
 #include "bisearch.h"
 #include "qsort.h"
 #include "prime.h"
 #include "bitmap.h"
+#include "left_rotate.h"
+
 namespace test {
     void quicksort() {
         const usize max = 1000000;
@@ -37,6 +40,24 @@ namespace test {
             assert(result == iter);
         }
     }
+
+    void bitmap() {
+        Bitmap map = Bitmap();
+        map.add(42);
+        map.add(4242);
+        assert(!map.get(11));
+        assert(map.get(42));
+        assert(map.get(4242));
+        assert(!map.get(4241));
+    }
+
+    void rotate() {
+        std::string s{"abcdefghijklmn"};
+        std::string t{"defghijklmnabc"};
+        left_move(ITER(s), 3);
+        assert(s == t);
+
+    }
 }
 
 int main() {
@@ -53,14 +74,11 @@ int main() {
     const u32 prime = 4263116;
     cout
             << prime << "st prime is: "
-            << prime_n(prime) << endl;
-    Bitmap map = Bitmap();
-    map.add(42);
-    map.add(4242);
-    assert(!map.get(11));
-    assert(map.get(42));
-    assert(map.get(4242));
-    assert(!map.get(4241));
+            << prime_n(prime) << endl
+            << "Bitmap test: ";
+    test::bitmap();
+    test::rotate();
+
     getchar();
     return 0;
 }

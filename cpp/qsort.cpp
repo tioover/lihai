@@ -1,11 +1,12 @@
 ﻿#include "qsort.h"
 #include <cassert>
+#include <algorithm>
 
 using Value = i32;
 
 
 Value make_pivot(Value *arr, usize left, usize right) {
-    using helper::swap;
+    using std::swap;
     // 三值中分，确保 头 <= pivot <= 尾
     // 这里有交换整理的功能，所以不适合用 std::min_element 。
     usize mid = helper::median(left, right);
@@ -25,7 +26,7 @@ Value make_pivot(Value *arr, usize left, usize right) {
 
 
 void sort(Value *arr, usize left, usize right) {
-    using helper::swap;
+    using std::swap;
 
     if (left == right) { return; } // 边界条件。
     // 将头尾和 pivot 按顺序排好，把 pivot 移动到 [right-1] 位置。

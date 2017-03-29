@@ -1,10 +1,11 @@
 #pragma once
 #include <stdexcept>
+#include <array>
 #include "types.h"
 #define BITMAP_MAX 0x1000
 
 class Bitmap {
-    u64 data[BITMAP_MAX] = {};
+    std::array<u64, BITMAP_MAX> data;
     u32 index(u32 x) {
         u32 i = x / 64;
         if (i > BITMAP_MAX-1) {

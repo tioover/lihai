@@ -12,6 +12,6 @@ set(SOURCE_FILES
         cpp/prime.h
         cpp/qsort.cpp
         cpp/qsort.h
-        cpp/types.h cpp/bitmap.cpp cpp/bitmap.h)
+        cpp/types.h cpp/bitmap.h cpp/left_rotate.h)
 
 add_executable(lihai ${SOURCE_FILES})
