@@ -23,4 +23,11 @@ namespace helper {
         // 显然这里是为了避免溢出。
         return a + (b - a) / 2;
     }
+
+    template<typename Iter>
+    Iter iter_median(Iter start, Iter end) {
+        auto i = start;
+        std::advance(i, std::distance(start, end) / 2);
+        return i;
+    }
 }
