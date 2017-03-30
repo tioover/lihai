@@ -26,7 +26,7 @@ class Bitmap {
 
 public:
     void add(u32 x) {
-        data[index(x)] ^= bit(x);
+        data[index(x)] |= bit(x);
     }
 
     bool get(u32 x) {

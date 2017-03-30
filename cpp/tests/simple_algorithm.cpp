@@ -5,7 +5,7 @@
 #include "generic.h"
 #include "bitmap.h"
 #include "prime.h"
-const usize max = 1000000;
+static const usize max = 100000;
 
 
 TEST(algorithm, qsort) {
@@ -33,7 +33,6 @@ TEST(algorithm, template_qsort) {
 }
 
 TEST(algorithm, bisearch) {
-    const usize max = 100000;
     using A = std::array<i32, max>;
     A arr;
     for (usize i = 0; i < max; i++) {
@@ -62,17 +61,23 @@ TEST(algorithm, prime_n) {
     EXPECT_EQ(prime_n(n), p);
 }
 
-//TEST(algorithm, bitmap) {
-//    std::random_device rand;
-//    std::array<u32, max> arr;
-//    Bitmap map = Bitmap();
-//    for (usize i = 0; i < max; i++) {
-//        arr[i] = rand() % BITMAP_SIZE;
-//        map.add(arr[i]);
-//    }
-//    for (u32 i : arr) {
-//        EXPECT_TRUE(map.get(i));
-//    }
-//}
+TEST(algorithm, bitmap) {
+    std::random_device rand;
+    std::array<u32, max> arr;
+    Bitmap map = Bitmap();
+    for (usize i = 0; i < max; i++) {
+        arr[i] = static_cast<u32>(rand()) % BITMAP_SIZE;
+    }
+    auto begin = std::begin(arr), end = std::end(arr);
+    std::sort(begin, end);
+    end = std::unique(begin, end);
+    auto mid = helper::iter_median(begin, end);
+    std::for_each(begin, mid, [&](u32 x){ map.add(x); });
+    std::for_each(begin, mid, [&](u32 x){ EXPECT_TRUE(map.get(x)) << x; });
+    std::for_each(mid, end, [&](u32 x){ EXPECT_FALSE(map.get(x)) << x; } );
+    EXPECT_ANY_THROW(map.get(BITMAP_SIZE));
+    EXPECT_ANY_THROW(map.get(BITMAP_SIZE+1));
+    EXPECT_ANY_THROW(map.get(BITMAP_SIZE+42));
+}
 
 
