@@ -1,4 +1,5 @@
 #pragma once
+
 #include <algorithm>
 #include "types.h"
 #include "base.h"
@@ -6,7 +7,7 @@
 template<typename Iter>
 void template_qsort(Iter begin, Iter end) {
     // 注意和 qsort.h 版本的差异，不详细说明。
-    if (begin >= end-1) { return; } // 注意区间和其它差异
+    if (begin >= end - 1) { return; } // 注意区间和其它差异
     Iter i = begin, j = end;
     auto pivot = *begin;
     for (;;) {
@@ -16,7 +17,7 @@ void template_qsort(Iter begin, Iter end) {
         else {
             std::swap(*begin, *j);
             template_qsort(begin, j); // 区间差异
-            template_qsort(j+1, end);
+            template_qsort(j + 1, end);
             return;
         }
     }

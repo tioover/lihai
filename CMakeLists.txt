@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.6)
 project(Lihai)
-
+add_subdirectory(lib/googletest)
 set(CMAKE_CXX_STANDARD 11)
 
 set(SOURCE_FILES
