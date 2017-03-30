@@ -4,28 +4,16 @@
 #include <array>
 #include "types.h"
 
-#define BITMAP_LEN 0x1000
-#define BITMAP_BITNUM 64
-#define BITMAP_SIZE BITMAP_LEN * BITMAP_BITNUM
-
-// TODO: 泛型化 template <int N>
+template <unsigned int N>
 class Bitmap {
-    std::array<u64, BITMAP_LEN> data;
-
-    u32 index(u32 x) {
-        u32 i = x / BITMAP_BITNUM;
-        if (i > BITMAP_LEN - 1) {
-            throw std::out_of_range("out of bitmap range.");
-        }
-        return i;
-    }
-
-    u64 bit(u32 x) {
-        u64 bit = 1;
-        return bit << (x % BITMAP_BITNUM);
-    }
-
 public:
+    using Value = u32;
+private:
+    using Block = u64;
+    static constexpr Value block_bit = sizeof(Block) * 8;
+public:
+    static constexpr Value size = block_bit * N;
+
     void add(u32 x) {
         data[index(x)] |= bit(x);
     }
@@ -35,6 +23,23 @@ public:
     }
 
     bool get(u32 x) {
-        return (data[index(x)] & bit(x)) != 0;
+        auto i = index(x);
+        auto block = data[i];
+        auto b = bit(x);
+        return (block & b) != 0;
+    }
+private:
+    std::array<Block, N> data{};
+    Value index(Value x) {
+        Value i = x / block_bit;
+        if (i > N-1) {
+            throw std::out_of_range("out of bitmap range.");
+        }
+        return i;
+    }
+
+    u64 bit(u32 x) {
+        u64 bit = 1;
+        return bit << (x % block_bit);
     }
 };
