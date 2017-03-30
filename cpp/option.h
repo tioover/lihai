@@ -7,27 +7,27 @@ template<typename T>
 class Option {
 public:
     Option() {
-        this->none = true;
+        none = true;
     }
 
     Option(T data)
             : data(data) {
-        this->none = false;
+        none = false;
     }
 
     T &&unwrap() noexcept {
-        if (this->none) {
+        if (none) {
             throw std::runtime_error("Unwrap a empty \"Maybe\"");
         }
-        this->none = false;
-        return std::move(this->data);
+        none = false;
+        return std::move(data);
     }
 
     bool is_none() {
-        return this->none;
+        return none;
     }
 
 private:
-    bool none;
     T data;
+    bool none;
 };

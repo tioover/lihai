@@ -78,6 +78,10 @@ TEST(algorithm, bitmap) {
     EXPECT_ANY_THROW(map.get(BITMAP_SIZE));
     EXPECT_ANY_THROW(map.get(BITMAP_SIZE+1));
     EXPECT_ANY_THROW(map.get(BITMAP_SIZE+42));
+    for (usize i = 0; i < 10; i++) {
+        map.remove(arr[1]);
+        EXPECT_FALSE(map.get(arr[1]));
+    }
 }
 
 

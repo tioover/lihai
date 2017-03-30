@@ -8,6 +8,7 @@
 #define BITMAP_BITNUM 64
 #define BITMAP_SIZE BITMAP_LEN * BITMAP_BITNUM
 
+// TODO: 泛型化 template <int N>
 class Bitmap {
     std::array<u64, BITMAP_LEN> data;
 
@@ -27,6 +28,10 @@ class Bitmap {
 public:
     void add(u32 x) {
         data[index(x)] |= bit(x);
+    }
+
+    void remove(u32 x) {
+        data[index(x)] &= ~bit(x);
     }
 
     bool get(u32 x) {
