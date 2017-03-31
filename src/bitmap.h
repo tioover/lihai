@@ -10,26 +10,26 @@ public:
     using Value = u32;
 private:
     using Block = u64;
-    static constexpr Value block_bit = sizeof(Block) * 8;
+    static const Value block_bit = sizeof(Block) * 8;
 public:
-    static constexpr Value size = block_bit * N;
+    static const Value size = block_bit * N;
 
-    void add(u32 x) {
-        data[index(x)] |= bit(x);
+    void add(Value x) {
+        blocks[index(x)] |= bit(x);
     }
 
-    void remove(u32 x) {
-        data[index(x)] &= ~bit(x);
+    void remove(Value x) {
+        blocks[index(x)] &= ~bit(x);
     }
 
-    bool get(u32 x) {
+    bool get(Value x) {
         auto i = index(x);
-        auto block = data[i];
+        auto block = blocks[i];
         auto b = bit(x);
         return (block & b) != 0;
     }
 private:
-    std::array<Block, N> data{};
+    std::array<Block, N> blocks{};
     Value index(Value x) {
         Value i = x / block_bit;
         if (i > N-1) {
@@ -38,8 +38,8 @@ private:
         return i;
     }
 
-    u64 bit(u32 x) {
-        u64 bit = 1;
+    Block bit(Value x) {
+        Block bit = 1;
         return bit << (x % block_bit);
     }
 };

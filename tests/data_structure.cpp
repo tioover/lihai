@@ -2,7 +2,7 @@
 #include "gtest/gtest.h"
 #include "base.h"
 #include "bitmap.h"
-
+#include "heap.h"
 
 static const usize max = 0x1000;
 
@@ -31,3 +31,12 @@ TEST(data_structure, bitmap) {
     }
 }
 
+TEST(data_structure, heap) {
+    Heap heap;
+    std::vector<u32> xs = {13, 21, 16, 24, 31, 19, 68, 65, 26, 32};;
+    for (u32 x: xs) {
+        heap.insert(x);
+    }
+    heap.insert(14);
+    EXPECT_EQ(13, heap.pop());
+}

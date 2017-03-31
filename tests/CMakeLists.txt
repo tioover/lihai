@@ -1,6 +1,6 @@
 project(LihaiCppTests)
 include_directories(${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR})
-include_directories(../)
+include_directories(../src)
 set(TEST_SOURCE_FILES simple_algorithm.cpp data_structure.cpp)
 add_executable(LihaiCppTests ${TEST_SOURCE_FILES})
 target_link_libraries(LihaiCppTests gtest gtest_main)

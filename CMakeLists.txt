@@ -1,17 +1,17 @@
 cmake_minimum_required(VERSION 3.6)
 project(Lihai)
 add_subdirectory(lib/googletest)
-set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 14)
 
 set(SOURCE_FILES
-        cpp/base.h
-        cpp/option.h
-        cpp/prime.cpp
-        cpp/prime.h
-        cpp/qsort.cpp
-        cpp/qsort.h
-        cpp/types.h cpp/bitmap.h cpp/generic.h)
+        src/base.h
+        src/option.h
+        src/prime.cpp
+        src/prime.h
+        src/qsort.cpp
+        src/qsort.h
+        src/types.h src/bitmap.h src/generic.h src/heap.h)
 
 add_library(LihaiCpp ${SOURCE_FILES})
 
-add_subdirectory(cpp/tests)
+add_subdirectory(tests)
