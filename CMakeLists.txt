@@ -8,9 +8,9 @@ set(SOURCE_FILES
         src/option.h
         src/prime.cpp
         src/prime.h
-        src/qsort.cpp
-        src/qsort.h
-        src/types.h src/bitmap.h src/generic.h src/heap.h)
+        src/sort.cpp
+        src/sort.h
+        src/types.h src/bitmap.h src/generic.h src/heap.h src/heap.cpp)
 
 add_library(LihaiCpp ${SOURCE_FILES})
 

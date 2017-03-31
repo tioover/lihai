@@ -1,6 +1,6 @@
-﻿#include "qsort.h"
+﻿#include "sort.h"
+#include "heap.h"
 #include <cassert>
-#include <algorithm>
 // 使用模板，以及半开半闭区间，以及最简实现，请参考 generic.h 的 template_qsort
 using Value = i32;
 
@@ -107,4 +107,15 @@ void quick_sort(Value *arr, usize len) {
     // 一个代理函数隐藏参数。
     // 区间的选择，对于快速排序来说比起 [start, end) 而言，[start, end] 更方便。
     sort(arr, 0, len - 1);
+}
+
+
+void heap_sort(Value *arr, usize len) {
+    Heap heap;
+    for (int i = 0; i < len; ++i) {
+        heap.insert(arr[i]);
+    }
+    for (int i = 0; i < len; ++i) {
+        arr[i] = heap.pop();
+    }
 }

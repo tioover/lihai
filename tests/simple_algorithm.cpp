@@ -1,10 +1,10 @@
 #include <array>
 #include <random>
 #include "gtest/gtest.h"
-#include "qsort.h"
+#include "sort.h"
 #include "generic.h"
-#include "bitmap.h"
 #include "prime.h"
+
 
 static const usize max = 100000;
 
@@ -23,6 +23,20 @@ TEST(algorithm, qsort) {
 
 TEST(algorithm, template_qsort) {
     std::random_device rand;
+    const usize max = 0x10000;
+    std::array<i32, max> arr;
+    for (usize i = 0; i < max; i++) {
+        arr[i] = rand() % 0x1000;
+    }
+    heap_sort(&arr[0], arr.size());
+    for (usize i = 0; i < max - 1; i++) {
+        EXPECT_LE(arr[i], arr[i + 1]);
+    }
+}
+
+
+TEST(algorithm, heap_sort) {
+    std::random_device rand;
     std::array<i32, max> arr;
     for (usize i = 0; i < max; i++) {
         arr[i] = rand() % 0x1000;
@@ -32,6 +46,7 @@ TEST(algorithm, template_qsort) {
         EXPECT_LE(arr[i], arr[i + 1]);
     }
 }
+
 
 TEST(algorithm, bisearch) {
     using A = std::array<i32, max>;
