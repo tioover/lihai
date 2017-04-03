@@ -23,6 +23,7 @@ Value make_pivot(Value *arr, usize left, usize right) {
     // 这里因为尾部所指的元素已经确保 >= pivot 了，已经符合快速排序的原理。
     // 因此排序的时候根本就不用管，把 pivot 放在了尾前就很好。
     swap(m, arr[right - 1]);
+    // 另外就是因为整数除法舍入的原因 mid 的计算会偏左，所以对于两个元素的情况下这个函数也能比较好的处理。
     return arr[right - 1];
 }
 
@@ -117,5 +118,18 @@ void heap_sort(Value *arr, usize len) {
     }
     for (int i = 0; i < len; ++i) {
         arr[i] = heap.pop();
+    }
+}
+
+void insert_sort(Value *arr, usize len) {
+    for (int i = 0; i < len-1; ++i) {
+        if (arr[i] > arr[i+1]) {
+            Value now = arr[i+1];
+            int j;
+            for (j = i+1; j > 0 && arr[j-1] > now ; --j) {
+                arr[j] = arr[j-1];
+            }
+            arr[j] = now;
+        }
     }
 }

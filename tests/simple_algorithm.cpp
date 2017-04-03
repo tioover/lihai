@@ -34,6 +34,18 @@ TEST(algorithm, template_qsort) {
     }
 }
 
+TEST(algorithm, insert_qsort) {
+    std::random_device rand;
+    const usize max = 0x10000;
+    std::array<i32, max> arr;
+    for (usize i = 0; i < max; i++) {
+        arr[i] = rand() % 0x100;
+    }
+    insert_sort(&arr[0], arr.size());
+    for (usize i = 0; i < max - 1; i++) {
+        EXPECT_LE(arr[i], arr[i + 1]);
+    }
+}
 
 TEST(algorithm, heap_sort) {
     std::random_device rand;

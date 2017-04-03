@@ -6,3 +6,5 @@
 void quick_sort(i32 *arr, usize len);
 
 void heap_sort(i32 *arr, usize len);
+
+void insert_sort(i32 *arr, usize len);
