@@ -1,60 +1,57 @@
 #pragma once
 
 #include <vector>
-#include <option.h>
-
-using GraphValue = int;
+#include "option.h"
 
 
-class Edge {
-    friend class Graph;
+namespace {
+    struct Edge {
+        size_t target;
+        size_t next;
+        bool empty;
+        Edge(size_t target, size_t next_outgoing):
+                target(target), next(next_outgoing), empty(false) {}
+        Edge(): empty(true) {}
+    };
 
-    size_t target;
-    Option<size_t> next_outgoing;
-public:
-    Edge(size_t target, size_t next_outgoing) :
-            target(target), next_outgoing(next_outgoing) {}
+    template <typename T>
+    struct Vertex {
+        using Value = T;
+        Value value;
+        size_t outgoing_edges;
+        Vertex(Value value, size_t outgoing): value(value), outgoing_edges(outgoing) {}
+    };
+}
 
-    Edge(size_t target) : target(target), next_outgoing(Option<size_t>()) {}
-};
-
-class Vertex {
-    friend class Graph;
-
-    GraphValue value;
-    Option<size_t> outgoing_edge;
-public:
-    Vertex(GraphValue value, size_t outgoing) :
-            value(value), outgoing_edge(Option<size_t>(outgoing)) {}
-
-    Vertex(GraphValue value) : value(value), outgoing_edge(Option<size_t>()) {}
-};
-
-
+template <typename T>
 class Graph {
-    friend class Edge;
+    std::vector<Edge> edges {};
+    std::vector<Vertex<T>> vertices {};
 
-    std::vector<Edge> edges{};
-    std::vector<Vertex> vertices{};
 public:
-    size_t add_vertex(Vertex vertex) {
-        vertices.push_back(vertex);
-        return vertices.size() - 1;
+    using Value = T;
+    size_t add_vertex(Value value) {
+        size_t edge_id = edges.size(), vertex_id = vertices.size();
+        edges.push_back(Edge());
+        vertices.push_back(Vertex<T>(value, edge_id));
+        return vertex_id;
     }
 
     size_t add_edge(size_t source, size_t target) {
-        Vertex &vertex = vertices[source];
-        size_t edge_len = edges.size();
-        if (vertex.outgoing_edge.is_none()) {
-            vertex.outgoing_edge = Option<size_t>(edge_len);
-        } else {
-            size_t i = vertex.outgoing_edge.get();
-            while (!edges[i].next_outgoing.is_none()) {
-                i = edges[i].next_outgoing.get();
-            }
-            edges[i].next_outgoing = Option<size_t>(edge_len);
+        size_t i = vertices[source].outgoing_edges;
+        while (!edges[i].empty) {
+            if (edges[i].target == target) return i;
+            i = edges[i].next;
         }
-        edges.push_back(Edge(target));
-        return edge_len;
+        edges[i].empty = false;
+        edges[i].target = target;
+        edges[i].next = edges.size();
+        edges.push_back(Edge());
+        return i;
+    }
+
+    Value get(size_t vertex_index) {
+        return vertices[vertex_index].value;
     }
 };
+

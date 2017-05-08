@@ -44,12 +44,12 @@ TEST(data_structure, heap) {
 
 
 TEST(data_structure, graph) {
-    Graph graph;
-    graph.add_vertex(Vertex(42));
-    graph.add_vertex(Vertex(0));
-    graph.add_vertex(Vertex(42));
-    graph.add_vertex(Vertex(12));
-    graph.add_vertex(Vertex(233));
+    Graph<int> graph;
+    graph.add_vertex(42);
+    graph.add_vertex(0);
+    graph.add_vertex(42);
+    graph.add_vertex(12);
+    graph.add_vertex(233);
     graph.add_edge(0, 4);
 
 }
