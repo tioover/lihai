@@ -3,6 +3,7 @@
 #include "base.h"
 #include "bitmap.h"
 #include "heap.h"
+#include "graph.h"
 
 static const usize max = 0x1000;
 
@@ -39,4 +40,16 @@ TEST(data_structure, heap) {
     }
     heap.insert(14);
     EXPECT_EQ(13, heap.pop());
+}
+
+
+TEST(data_structure, graph) {
+    Graph graph;
+    graph.add_vertex(Vertex(42));
+    graph.add_vertex(Vertex(0));
+    graph.add_vertex(Vertex(42));
+    graph.add_vertex(Vertex(12));
+    graph.add_vertex(Vertex(233));
+    graph.add_edge(0, 4);
+
 }

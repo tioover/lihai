@@ -15,7 +15,11 @@ public:
         none = false;
     }
 
-    T &&unwrap() noexcept {
+    T get() {
+        return data;
+    }
+
+    T &&unwrap() {
         if (none) {
             throw std::runtime_error("Unwrap a empty \"Maybe\"");
         }

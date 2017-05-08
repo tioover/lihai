@@ -10,7 +10,7 @@ set(SOURCE_FILES
         src/prime.h
         src/sort.cpp
         src/sort.h
-        src/types.h src/bitmap.h src/generic.h src/heap.h src/heap.cpp)
+        src/types.h src/bitmap.h src/generic.h src/heap.h src/heap.cpp src/graph.h)
 
 add_library(LihaiCpp ${SOURCE_FILES})
 
